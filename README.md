@@ -12,20 +12,25 @@ NOTE: This version is just work and needs much work to be a perfect one.
  - [Download and Install](https://www.mongodb.org/downloads)
 - Libpcap
  - Install libpcap and libpcap-dev
-- Go deps
-```
-$ go get github.com/gorilla/mux
-$ go get gopkg.in/mgo.v2
-```
+- Go packages
+ - github.com/gorilla/mux
+ - go get gopkg.in/mgo.v2
 
 ## How to use?
 
-Note: The default network interface is wlan0. You can change it
-in "netowrk.go" file.
- 
-- You need permission to capture the traffic
+- Clone and install Go packages
+```
+$ git clone https://github.com/qlimaxx/proceye.git
+$ cd proceye
+$ export GOPATH=$(pwd)
+$ go get
+```
+- Run the program (You need permission to capture the traffic)
 ```
 $ sudo go run *.go
 ```
+NOTE: The default network interface is wlan0. You can change it
+in "network.go" file.
+
 - Open http://127.0.0.1:8080
 
