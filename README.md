@@ -13,8 +13,8 @@ NOTE: This version is just work and needs much work to be a perfect one.
 - Libpcap
  - Install libpcap and libpcap-dev
 - Go packages
- - [github.com/gorilla/mux](https://github.com/gorilla/mux)
  - [gopkg.in/mgo.v2](https://gopkg.in/mgo.v2)
+ - [github.com/gorilla/mux](https://github.com/gorilla/mux)
 
 ## How to use?
 
