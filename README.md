@@ -6,9 +6,9 @@
 ## Dependencies
 
 - MongoDB
-[Download and Install](https://www.mongodb.org/downloads)
+ - [Download and Install](https://www.mongodb.org/downloads)
 - Libpcap
-Install libpcap and libpcap-dev
+ - Install libpcap and libpcap-dev
 - Go deps
 ```
 $ go get github.com/gorilla/mux
