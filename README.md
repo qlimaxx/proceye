@@ -1,6 +1,6 @@
 # ProcEye
 
-ProcEye is a monitoring tool that monitors your ressources per process. It gives you the possibility to follow your resource Consumption for each process. 
+ProcEye is a monitoring tool that monitors your ressources per process. It gives you the possibility to follow your resource consumption for each process. 
 - Version: 0.1
 - Platform: Linux
 
