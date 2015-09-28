@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/nv.d3.min.css"/>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/angular.js"></script>
+    <script src="/static/js/d3.min.js"></script>
+    <script src="/static/js/nv.d3.min.js"></script>
+    <script src="/static/js/angular-nvd3.js"></script>
+    <script type="text/javascript">
+    url = window.location.hash.replace('#','')
+    var app = angular.module('ngApp', ['nvd3']);
+    app.controller('MainCtrl', function($scope, $http, $timeout) {
+    (function tick() {
+      $http.get(url + "/cpu")
+      .success(function(response) {
+        cpu = response.map(function(e) { return {x:e.ts,y:e.cpu} });
+        $scope.dataCpu = [{
+          values: cpu,
+          key: 'CPU',
+          color: '#ff7f0e'
+          },
+        ];
+      });
+      $http.get(url + "/mem")
+      .success(function(response) {
+        mem = response.map(function(e) { return {x:e.ts,y:e.mem} });
+        $scope.dataMem = [{
+          values: mem,
+          key: 'Memory',
+          color: '#1188ff'
+          },
+        ];
+      });
+      $http.get(url + "/net")
+      .success(function(response) {
+        netDown = response.map(function(e) { return {x:e.ts,y:e.down} });
+        netUp = response.map(function(e) { return {x:e.ts,y:e.up} });
+        $scope.dataNet = [{
+          values: netDown,
+          key: 'Download Rate',
+          color: '#884422'
+          },
+          {
+          values: netUp,
+          key: 'Upload Rate',
+          color: '#88cc77'
+          }
+        ];
+      });
+      $scope.optionsCpu = {
+        chart: {
+          type: 'lineChart',
+          height: 240,
+          width: 600,
+          margin : {
+            top: 20,
+            right: 40,
+            bottom: 40,
+            left: 75
+          },
+          x: function(d){ return d.x; },
+          y: function(d){ return d.y; },
+          useInteractiveGuideline: false,
+          xAxis: {
+            axisLabel: 'Timestamp (s)'
+          },
+          yAxis: {
+            axisLabel: 'Usage (%)',
+          },
+          lines: { // for line chart
+            forceY: [1],
+            //yDomain: [0,100],
+            //yRange: [0,100]
+          }
+        },
+        title: {
+          enable: true,
+          text: 'CPU History'
+        }
+      };
+      $scope.optionsMem = {
+        chart: {
+          type: 'lineChart',
+          height: 240,
+          width: 600,
+          margin : {
+            top: 20,
+            right: 40,
+            bottom: 40,
+            left: 75
+          },
+          x: function(d){ return d.x; },
+          y: function(d){ return d.y; },
+          useInteractiveGuideline: false,
+          xAxis: {
+            axisLabel: 'Timestamp (s)'
+          },
+          yAxis: {
+            axisLabel: 'Usage (%)',
+          },
+          lines: { // for line chart
+            forceY: [1],
+            //yDomain: [0,100],
+            //yRange: [0,100]
+          }
+        },
+        title: {
+          enable: true,
+          text: 'Memory History'
+        }
+      };
+      $scope.optionsNet = {
+        chart: {
+          type: 'lineChart',
+          height: 240,
+          width: 600,
+          margin : {
+            top: 20,
+            right: 40,
+            bottom: 40,
+            left: 75
+          },
+          x: function(d){ return d.x; },
+          y: function(d){ return d.y; },
+          useInteractiveGuideline: false,
+          xAxis: {
+            axisLabel: 'Timestamp (s)'
+          },
+          yAxis: {
+            axisLabel: 'Usage (%)',
+          },
+          lines: { // for line chart
+            forceY: [100],
+            //yDomain: [0,100],
+            //yRange: [0,100]
+          }
+        },
+        title: {
+          enable: true,
+          text: 'Network History'
+        }
+      };
+      $timeout(tick, 5000);
+    })();
+    });
+    </script>
+  </head>
+  <body ng-app="ngApp" ng-controller="MainCtrl">
+    <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><b><i>ProcEye</i></b></a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="/">Real Time</a></li>
+              <li><a href="/system.html">System History</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="row">
+        <div class="col-md-6">
+          <nvd3 options="optionsCpu" data="dataCpu"></nvd3>
+        </div>
+        <div class="col-md-6">
+          <nvd3 options="optionsMem" data="dataMem"></nvd3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div align="center"><nvd3 options="optionsNet" data="dataNet"></div></nvd3>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
