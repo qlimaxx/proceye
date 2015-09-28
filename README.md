@@ -18,7 +18,7 @@ NOTE: This version is just work and needs much work to be a perfect one.
 
 ## How to use?
 
-- Clone and install Go packages
+- Clone this repository and install Go packages
 ```
 $ git clone https://github.com/qlimaxx/proceye.git
 $ cd proceye
